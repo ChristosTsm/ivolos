@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
+import { Button } from 'react-native-elements';
+
+
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+
 
 export default class Category extends Component {
     render() {
@@ -14,6 +20,8 @@ export default class Category extends Component {
                 <View style={{ flex: 1, paddingLeft: 10, paddingTop: 10 }}>
                     <Text style={{ fontWeight: '700', fontSize: 15, color: '#c4463d' }}>{this.props.title}</Text>
                 </View>
+                {/* <Button buttonStyle={{ backgroundColor: '#c4463d' }} title='Explore' onPress={() => this.props.navigation.navigate(`${this.props.link}`)} /> */}
+                {this.props.children}
             </View>
         )
     }
