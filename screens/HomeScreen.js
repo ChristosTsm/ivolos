@@ -22,7 +22,6 @@ import { createStackNavigator } from 'react-navigation-stack';
 const { height, width } = Dimensions.get('window');
 
 export default class HomeScreen extends React.Component {
-
     static navigationOptions = {
         headerShown: false
     };
@@ -116,7 +115,7 @@ export default class HomeScreen extends React.Component {
                                     Introducing iVolos Student
                                 </Text>
                                 <Text style={{ color: '#c4463d', fontSize: 12, fontWeight: '100' }}>
-                                    Student in Volos? Feel free to grab any discounts for your entertainment
+                                    Studying in Volos? Learn more about any discounts via our App
                                 </Text>
                                 <View style={{ width: width - 40, height: 200, marginTop: 20 }}>
                                     <Image
@@ -124,15 +123,36 @@ export default class HomeScreen extends React.Component {
                                         source={require('../assets/college.jpg')}
                                     />
                                     <Button
-                                        title='Try now'
+                                        title='Learn More'
                                         buttonStyle={{ backgroundColor: '#c4463d' }}
                                         onPress={() => this.props.navigation.navigate('Student')}
                                     />
+                                </View>
+
+                                <View style={{ marginTop: 40 }}>
+                                    <Text style={{ color: '#c4463d', fontSize: 24, fontWeight: '700' }}>
+                                        Magical Christmas in Volos
+                                    </Text>
+                                    <Text style={{ color: '#c4463d', fontSize: 12, fontWeight: '100' }}>
+                                        Guide yourself around the city and enjoy the magic atmosphere
+                                    </Text>
+                                    <View style={{ width: width - 40, height: 200, marginTop: 20 }}>
+                                        <Image
+                                            style={{ flex: 1, height: null, width: null, resizeMode: 'cover', borderRadius: 5, borderWidth: 1, borderColor: '#c4463d' }}
+                                            source={require('../assets/xmas.jpg')}
+                                        />
+                                        <Button
+                                            title='Learn More'
+                                            buttonStyle={{ backgroundColor: '#c4463d' }}
+                                            onPress={() => this.props.navigation.navigate('Student')}
+                                        />
+                                    </View>
                                 </View>
                             </View>
 
                         </View>
                     </ScrollView>
+
                 </View>
             </ScrollView>
         );
