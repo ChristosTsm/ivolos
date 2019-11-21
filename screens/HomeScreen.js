@@ -22,6 +22,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 const { height, width } = Dimensions.get('window');
 
 export default class HomeScreen extends React.Component {
+
+    static navigationOptions = {
+        headerShown: false
+    };
+
     constructor() {
         super()
         this.state = {
