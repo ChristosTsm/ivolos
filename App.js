@@ -82,6 +82,10 @@ export default class App extends React.Component {
                     title={'Nightlife'}
                   />
                   <Category
+                    imageUri={require('./assets/coffee.jpg')}
+                    title={'Coffee Shops'}
+                  />
+                  <Category
                     imageUri={require('./assets/sightsee.jpg')}
                     title={'Sightseeing'}
                   />

@@ -14,7 +14,6 @@ export default class Category extends Component {
                 <View style={{ flex: 1, paddingLeft: 10, paddingTop: 10 }}>
                     <Text style={{ fontWeight: '700', fontSize: 15, color: '#c4463d' }}>{this.props.title}</Text>
                 </View>
-
             </View>
         )
     }
