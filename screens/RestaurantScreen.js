@@ -89,7 +89,6 @@ export default class RestaurantScreen extends Component {
             <View style={styles.container}>
                 <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Recommendations</Text>
                 <ScrollView
-                    showsVerticalScrollIndicator={false}
                     style={styles.categories}>
                     <View>
                         {

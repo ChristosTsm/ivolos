@@ -13,11 +13,9 @@ import { Button, ThemeProvider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 import * as Font from 'expo-font';
 import Category from '../components/Category';
-// 
+import { SocialIcon } from 'react-native-elements'
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
-
 
 const { height, width } = Dimensions.get('window');
 
@@ -148,6 +146,23 @@ export default class HomeScreen extends React.Component {
                                         />
                                     </View>
                                 </View>
+                                <View style={styles.social}>
+                                    <SocialIcon
+                                        type='twitter'
+                                        raised
+                                        style={{ backgroundColor: '#c4463d' }}
+                                    />
+                                    <SocialIcon
+                                        type='facebook'
+                                        raised
+                                        style={{ backgroundColor: '#c4463d' }}
+                                    />
+                                    <SocialIcon
+                                        type='instagram'
+                                        raised
+                                        style={{ backgroundColor: '#c4463d' }}
+                                    />
+                                </View>
                             </View>
 
                         </View>
@@ -194,5 +209,11 @@ const styles = StyleSheet.create({
     inScrollView: {
         flex: 1,
         paddingTop: 20
+    },
+    social: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 30
     }
 });
