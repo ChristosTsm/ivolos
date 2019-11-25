@@ -43,6 +43,7 @@ export default class HomeScreen extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 <ImageBackground
+                    blurRadius={2}
                     source={require('../assets/headerimg.jpg')}
                     style={styles.top}>
                     {this.state.fontLoaded ?
@@ -90,7 +91,7 @@ export default class HomeScreen extends React.Component {
                                         imageUri={require('../assets/liquor.jpg')}
                                         title={'Nightlife'}
                                     >
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
+                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Nightlife')} title='Explore' />
                                     </Category>
 
                                     <Category
@@ -142,7 +143,7 @@ export default class HomeScreen extends React.Component {
                                         <Button
                                             title='Learn More'
                                             buttonStyle={{ backgroundColor: '#c4463d' }}
-                                            onPress={() => this.props.navigation.navigate('Student')}
+                                            onPress={() => this.props.navigation.navigate('Christmas')}
                                         />
                                     </View>
                                 </View>

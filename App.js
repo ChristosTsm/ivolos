@@ -1,12 +1,12 @@
 import React from 'react';
-// 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-// 
 import HomeScreen from './screens/HomeScreen';
 import AboutScreen from './screens/AboutScreen';
 import StudentScreen from './screens/StudentScreen';
 import RestaurantScreen from './screens/RestaurantScreen';
+import ChristmasScreen from './screens/ChristmasScreen';
+import NightlifeScreen from './screens/NightlifeScreen';
 import ApiKeys from './constants/ApiKeys';
 import * as firebase from 'firebase';
 
@@ -37,6 +37,12 @@ const AppNavigator = createStackNavigator({
   },
   Restaurant: {
     screen: RestaurantScreen
+  },
+  Nightlife: {
+    screen: NightlifeScreen
+  },
+  Christmas: {
+    screen: ChristmasScreen
   }
 });
 

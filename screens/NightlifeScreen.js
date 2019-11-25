@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, Text, StyleSheet, FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements'
-import * as firebase from 'firebase';
+
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -72,9 +72,9 @@ const discover = [
     },
 ]
 
-export default class RestaurantScreen extends Component {
+export default class NightlifeScreen extends Component {
     static navigationOptions = {
-        title: 'Restaurants',
+        title: 'Nightlife',
         headerStyle: {
             backgroundColor: '#c4463d',
         },
@@ -84,62 +84,59 @@ export default class RestaurantScreen extends Component {
         },
     }
 
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         discover: '',
-    //         rest: ''
-    //     };
-    // }
+    constructor() {
+        super();
+        let ds = new FlatList.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
+        this.state = {
+            itemDataSource: ds
+        }
 
-    // componentDidMount() {
-    //     const rootRef = firebase.database().ref().child('places');
-    //     const restRef = rootRef.child('discover');
-    //     restRef.on('value', snap => {
-    //         this.setState({
-    //             discover: snap.val(),
-    //             rest: snap.val() 
-    //         });
-    //     })
-    // }
+        this.renderRow = this.renderRow.bind(this);
+        // this.renderRow = this.renderRow.bind(this);
+    }
+
+    componentWillMount() {
+        this.getItems();
+    }
+
+    componentDidMount() {
+        this.getItems();
+    }
+
+    getItems() {
+        let items = [{ title: 'Item One', address: 'Adress One' }, { title: 'Item Two', address: 'Adress Two' }]
+
+        this.setState({
+            itemDataSource: this.state.itemDataSource.cloneWithRows(items)
+        });
+    }
+
+    renderRow(item) {
+        return (
+            <View>
+                {
+                    rec.map((l, i) => (
+                        <ListItem
+                            key={i}
+                            // leftAvatar={{ source: { uri: l.avatar_url } }}
+                            title={item.title}
+                            address={item.address}
+                            onPress={() => this.props.navigation.navigate(`${l.link}`)}
+                            bottomDivider
+                        />
+                    ))
+                }
+            </View>
+        );
+    }
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Recommendations</Text>
-                <ScrollView
-                    style={styles.categories}>
-                    <View>
-                        {
-                            rec.map((l, i) => (
-                                <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                                    title={l.name}
-                                    address={l.subtitle}
-                                    onPress={() => this.props.navigation.navigate(`${l.link}`)}
-                                    bottomDivider
-                                />
-                            ))
-                        }
-                    </View>
-                </ScrollView>
-                <View style={styles.recommendations}>
-                    <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Discover</Text>
-                    <ScrollView>
-                        {
-                            discover.map((l, i) => (
-                                <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                                    title={l.name}
-                                    address={l.subtitle}
-                                    bottomDivider
-                                />
-                            ))
-                        }
-                    </ScrollView>
-                </View>
+            <View>
+                <ListView
+                    dataSource={this.state.itemDataSource}
+                    renderRow={this.renderRow}
+                />
             </View>
         )
     }

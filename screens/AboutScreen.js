@@ -3,7 +3,7 @@ import { Button, View, Text } from 'react-native';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
+import * as firebase from 'firebase';
 
 export default class AboutScreen extends Component {
     static navigationOptions = {
@@ -15,6 +15,12 @@ export default class AboutScreen extends Component {
         headerTitleStyle: {
             fontWeight: 'bold',
         },
+    }
+
+    componentWillMount() {
+        firebase.database().ref('about').once('value', (data) => {
+
+        })
     }
 
     render() {
