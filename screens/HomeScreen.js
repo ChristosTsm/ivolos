@@ -58,7 +58,7 @@ export default class HomeScreen extends React.Component {
                             titleStyle={{ fontSize: 20, padding: 10 }}
                             buttonStyle={{ backgroundColor: '#c4463d', padding: 12 }}
                             style={styles.btn}
-                            title="Get Started"
+                            title="Things To Do"
                             iconRight
                             icon={
                                 <Icon
