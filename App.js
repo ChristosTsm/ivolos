@@ -43,7 +43,7 @@ const AppNavigator = createStackNavigator({
   },
   Christmas: {
     screen: ChristmasScreen
-  }
+  },
 });
 
 const AppContainer = createAppContainer(AppNavigator);

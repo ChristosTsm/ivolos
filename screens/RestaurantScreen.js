@@ -1,78 +1,15 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { ActivityIndicator, View, Text, StyleSheet, YellowBox } from 'react-native';
 import { ListItem } from 'react-native-elements'
 import * as firebase from 'firebase';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import 'firebase/firestore';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const rec = [
-    {
-        name: 'Brothers Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        address: 'Address St. Random Number',
-        link: 'Home'
-    },
-    {
-        name: 'Example Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        address: 'Address St. Random Number 23',
-        link: 'About'
-    },
-    {
-        name: 'Example Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        address: 'Address St. Random Number 23',
-        link: 'About'
-    },
-    {
-        name: 'Example Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        address: 'Address St. Random Number 23',
-        link: 'About'
-    },
-]
 
-const discover = [
-    {
-        name: 'Discover Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        address: 'Address St. Random Number',
-        link: 'Home'
-    },
-    {
-        name: 'Example Discover Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        address: 'Address St. Random Number 23',
-        link: 'About'
-    },
-    {
-        name: 'Discover Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        address: 'Address St. Random Number',
-        link: 'Home'
-    },
-    {
-        name: 'Example Discover Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        address: 'Address St. Random Number 23',
-        link: 'About'
-    },
-    {
-        name: 'Discover Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-        address: 'Address St. Random Number',
-        link: 'Home'
-    },
-    {
-        name: 'Example Discover Restaurant',
-        avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-        address: 'Address St. Random Number 23',
-        link: 'About'
-    },
-]
 
 export default class RestaurantScreen extends Component {
+
+
     static navigationOptions = {
         title: 'Restaurants',
         headerStyle: {
@@ -84,61 +21,114 @@ export default class RestaurantScreen extends Component {
         },
     }
 
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         discover: '',
-    //         rest: ''
-    //     };
-    // }
 
-    // componentDidMount() {
-    //     const rootRef = firebase.database().ref().child('places');
-    //     const restRef = rootRef.child('discover');
-    //     restRef.on('value', snap => {
-    //         this.setState({
-    //             discover: snap.val(),
-    //             rest: snap.val() 
-    //         });
-    //     })
-    // }
+
+    constructor(props) {
+        super(props);
+        YellowBox.ignoreWarnings(['Setting a timer']);
+        this.discRef = firebase.firestore().collection('restRecc');  // Recommendations
+        this.ref = firebase.firestore().collection('rest');    // Discover
+        this.recommended = null;  // Reccomendations
+        this.discover = null;  // Discover
+        this.state = {
+            isLoading: true,
+            restaurantsRec: [],
+            discRest: []
+        };
+    }
+
+
+    onCollectionUpdate = (querySnapshot) => {
+        const restaurantsRec = [];
+        querySnapshot.forEach((doc) => {
+            const { name, address, id, avatar_url } = doc.data();
+            restaurantsRec.push({
+                key: doc.id,
+                doc,
+                name,
+                address,
+                avatar_url
+            });
+        });
+        this.setState({
+            restaurantsRec,
+            isLoading: false
+        });
+    }
+
+    onCollectionDiscUpdate = (queryDiscSnapshot) => {
+        const discRest = [];
+        queryDiscSnapshot.forEach((doc) => {
+            const { name, address, id, avatar_url } = doc.data();
+            discRest.push({
+                key: doc.id,
+                doc,
+                name,
+                address,
+                avatar_url
+            });
+        });
+        this.setState({
+            discRest,
+            isLoading: false
+        });
+    }
+
+    componentDidMount() {
+        this.recommended = this.ref.onSnapshot(this.onCollectionUpdate);
+        this.discover = this.discRef.onSnapshot(this.onCollectionDiscUpdate);
+    }
+
+    componentWillUnmount() {
+        this.recommended = null;
+        this.discover = null;
+        this.state = {
+            isLoading: true,
+            restaurantsRec: [],
+            discRest: []
+        };
+    }
+
+
 
     render() {
         return (
             <View style={styles.container}>
                 <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Recommendations</Text>
-                <ScrollView
-                    style={styles.categories}>
-                    <View>
+                {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
+                    <ScrollView
+                        style={styles.categories}>
                         {
-                            rec.map((l, i) => (
+                            this.state.discRest.map((l, i) => (
                                 <ListItem
                                     key={i}
                                     leftAvatar={{ source: { uri: l.avatar_url } }}
                                     title={l.name}
-                                    address={l.subtitle}
+                                    subtitle={l.address}
                                     onPress={() => this.props.navigation.navigate(`${l.link}`)}
                                     bottomDivider
                                 />
                             ))
                         }
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                }
                 <View style={styles.recommendations}>
                     <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Discover</Text>
-                    <ScrollView>
-                        {
-                            discover.map((l, i) => (
-                                <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                                    title={l.name}
-                                    address={l.subtitle}
-                                    bottomDivider
-                                />
-                            ))
-                        }
-                    </ScrollView>
+                    {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
+                        <ScrollView>
+                            {
+                                this.state.restaurantsRec.map((l, i) => (
+                                    <ListItem
+                                        key={i}
+                                        leftAvatar={{ source: { uri: l.avatar_url } }}
+                                        title={l.name}
+                                        subtitle={l.address}
+                                        bottomDivider
+                                    />
+                                ))
+                            }
+                        </ScrollView>
+                    }
                 </View>
             </View>
         )
