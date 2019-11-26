@@ -98,14 +98,14 @@ export default class HomeScreen extends React.Component {
                                         imageUri={require('../assets/coffee.jpg')}
                                         title={'Coffee Shops'}
                                     >
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
+                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('CoffeeShops')} title='Explore' />
                                     </Category>
 
                                     <Category
                                         imageUri={require('../assets/sightsee.jpg')}
                                         title={'Sightseeing'}
                                     >
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
+                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Sightsee')} title='Explore' />
                                     </Category>
                                 </ScrollView>
                             </View>

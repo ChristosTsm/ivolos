@@ -5,10 +5,13 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export default class RestaurantScreen extends Component {
+
+
+export default class CoffeeScreen extends Component {
+
 
     static navigationOptions = {
-        title: 'Restaurants',
+        title: 'Coffee Shops',
         headerStyle: {
             backgroundColor: '#c4463d',
         },
@@ -23,23 +26,23 @@ export default class RestaurantScreen extends Component {
     constructor(props) {
         super(props);
         YellowBox.ignoreWarnings(['Setting a timer']);
-        this.discRef = firebase.firestore().collection('restRecc');  // Recommendations
-        this.ref = firebase.firestore().collection('rest');    // Discover
+        this.ref = firebase.firestore().collection('coffeeRec');  // Recommendations
+        this.discRef = firebase.firestore().collection('coffeeDisc');    // Discover
         this.recommended = null;  // Reccomendations
         this.discover = null;  // Discover
         this.state = {
             isLoading: true,
-            restaurantsRec: [],
-            discRest: []
+            coffeeRec: [],
+            coffeeDisc: []
         };
     }
 
 
     onCollectionUpdate = (querySnapshot) => {
-        const restaurantsRec = [];
+        const coffeeRec = [];
         querySnapshot.forEach((doc) => {
             const { name, address, id, avatar_url } = doc.data();
-            restaurantsRec.push({
+            coffeeRec.push({
                 key: doc.id,
                 doc,
                 name,
@@ -48,16 +51,16 @@ export default class RestaurantScreen extends Component {
             });
         });
         this.setState({
-            restaurantsRec,
+            coffeeRec,
             isLoading: false
         });
     }
 
     onCollectionDiscUpdate = (queryDiscSnapshot) => {
-        const discRest = [];
+        const coffeeDisc = [];
         queryDiscSnapshot.forEach((doc) => {
             const { name, address, id, avatar_url } = doc.data();
-            discRest.push({
+            coffeeDisc.push({
                 key: doc.id,
                 doc,
                 name,
@@ -66,7 +69,7 @@ export default class RestaurantScreen extends Component {
             });
         });
         this.setState({
-            discRest,
+            coffeeDisc,
             isLoading: false
         });
     }
@@ -96,7 +99,7 @@ export default class RestaurantScreen extends Component {
                     <ScrollView
                         style={styles.categories}>
                         {
-                            this.state.discRest.map((l, i) => (
+                            this.state.coffeeRec.map((l, i) => (
                                 <ListItem
                                     key={i}
                                     leftAvatar={{ source: { uri: l.avatar_url } }}
@@ -114,7 +117,7 @@ export default class RestaurantScreen extends Component {
                     {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
                         <ScrollView>
                             {
-                                this.state.restaurantsRec.map((l, i) => (
+                                this.state.coffeeDisc.map((l, i) => (
                                     <ListItem
                                         key={i}
                                         leftAvatar={{ source: { uri: l.avatar_url } }}

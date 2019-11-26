@@ -1,4 +1,5 @@
 import React from 'react';
+import { YellowBox } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './screens/HomeScreen';
@@ -7,11 +8,14 @@ import StudentScreen from './screens/StudentScreen';
 import RestaurantScreen from './screens/RestaurantScreen';
 import ChristmasScreen from './screens/ChristmasScreen';
 import NightlifeScreen from './screens/NightlifeScreen';
+import CoffeeScreen from './screens/CoffeeScreen';
+import SightSeeingScreen from './screens/SightSeeingScreen';
 import ApiKeys from './constants/ApiKeys';
 import * as firebase from 'firebase';
 
 export default class App extends React.Component {
   constructor(props) {
+    YellowBox.ignoreWarnings(['Setting a timer']);
     super(props);
 
     // Initialize Firebase
@@ -40,6 +44,12 @@ const AppNavigator = createStackNavigator({
   },
   Nightlife: {
     screen: NightlifeScreen
+  },
+  CoffeeShops: {
+    screen: CoffeeScreen
+  },
+  Sightsee: {
+    screen: SightSeeingScreen
   },
   Christmas: {
     screen: ChristmasScreen
