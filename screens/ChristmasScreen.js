@@ -20,8 +20,8 @@ export default class Students extends React.Component {
     constructor(props) {
         super(props);
         YellowBox.ignoreWarnings(['Setting a timer']);
-        this.ref = firebase.firestore().collection('events');    // Discover
-        this.events = null;  // Discover
+        this.ref = firebase.firestore().collection('events');
+        this.events = null;
         this.state = {
             isLoading: true,
             events: [],
@@ -60,7 +60,7 @@ export default class Students extends React.Component {
 
         return (
             <View style={styles.container}>
-                {/* <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d', marginHorizontal: 20 }}>Christmas Activities & Events</Text> */}
+
                 {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
                     <ScrollView
                         showsVerticalScrollIndicator={false}

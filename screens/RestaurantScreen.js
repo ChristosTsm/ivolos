@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, YellowBox } from 'react-native';
-import { ListItem } from 'react-native-elements'
+import React from 'react';
+import { ActivityIndicator, View, Text, StyleSheet, YellowBox, Linking } from 'react-native';
+import { Image, Button, Icon } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { ScrollView } from 'react-native-gesture-handler';
 
-export default class RestaurantScreen extends Component {
-
+export default class RestaurantScreen extends React.Component {
     static navigationOptions = {
         title: 'Restaurants',
         headerStyle: {
@@ -18,132 +17,130 @@ export default class RestaurantScreen extends Component {
         },
     }
 
-
-
     constructor(props) {
         super(props);
         YellowBox.ignoreWarnings(['Setting a timer']);
-        this.discRef = firebase.firestore().collection('restRecc');  // Recommendations
-        this.ref = firebase.firestore().collection('rest');    // Discover
-        this.recommended = null;  // Reccomendations
-        this.discover = null;  // Discover
+        this.ref = firebase.firestore().collection('restaurantsRec');
+        this.restaurants = null;
         this.state = {
             isLoading: true,
-            restaurantsRec: [],
-            discRest: []
+            restaurants: [],
         };
     }
-
 
     onCollectionUpdate = (querySnapshot) => {
-        const restaurantsRec = [];
+        const restaurants = [];
         querySnapshot.forEach((doc) => {
-            const { name, address, id, avatar_url } = doc.data();
-            restaurantsRec.push({
+            const { name, linkurl, address, imageUri, cousine } = doc.data();
+            restaurants.push({
                 key: doc.id,
                 doc,
                 name,
                 address,
-                avatar_url
+                imageUri,
+                linkurl,
+                cousine
             });
         });
         this.setState({
-            restaurantsRec,
+            restaurants,
             isLoading: false
         });
     }
 
-    onCollectionDiscUpdate = (queryDiscSnapshot) => {
-        const discRest = [];
-        queryDiscSnapshot.forEach((doc) => {
-            const { name, address, id, avatar_url } = doc.data();
-            discRest.push({
-                key: doc.id,
-                doc,
-                name,
-                address,
-                avatar_url
-            });
-        });
-        this.setState({
-            discRest,
-            isLoading: false
-        });
-    }
 
     componentDidMount() {
-        this.recommended = this.ref.onSnapshot(this.onCollectionUpdate);
-        this.discover = this.discRef.onSnapshot(this.onCollectionDiscUpdate);
-    }
-
-    componentWillUnmount() {
-        this.recommended = null;
-        this.discover = null;
-        this.state = {
-            isLoading: true,
-            restaurantsRec: [],
-            discRest: []
-        };
+        this.restaurants = this.ref.onSnapshot(this.onCollectionUpdate);
     }
 
 
 
     render() {
+
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Recommendations</Text>
+                <Text style={styles.header}>Our Suggestions</Text>
                 {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
                     <ScrollView
+                        showsVerticalScrollIndicator={false}
                         style={styles.categories}>
                         {
-                            this.state.discRest.map((l, i) => (
-                                <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                                    title={l.name}
-                                    subtitle={l.address}
-                                    onPress={() => this.props.navigation.navigate(`${l.link}`)}
-                                    bottomDivider
-                                />
+                            this.state.restaurants.map((l, i) => (
+                                <View key={i} style={{ paddingVertical: 15 }}>
+                                    <Text style={{ color: '#c4463d', fontWeight: '400', fontSize: 24 }}>{l.name}</Text>
+                                    <Image
+                                        resizeMode='cover'
+                                        source={{ uri: l.imageUri }}
+                                        style={{ width: null, height: 190 }}
+                                        PlaceholderContent={<ActivityIndicator />}
+                                    />
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Icon
+                                            reverse
+                                            size={12}
+                                            name='location-on'
+                                            color='#c4463d'
+                                            raised={true}
+                                        />
+                                        <View style={{
+                                            flex: 1, justifyContent: 'flex-end',
+                                            alignItems: 'flex-start',
+                                        }}>
+                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.address}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Icon
+                                            reverse
+                                            size={12}
+                                            name='kitchen'
+                                            color='#c4463d'
+                                            raised={true}
+                                        />
+                                        <View style={{
+                                            flex: 1, justifyContent: 'flex-end',
+                                            alignItems: 'flex-start',
+                                        }}>
+                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.cousine}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <Button
+                                        raised={true}
+                                        type='outline'
+                                        onPress={() => { Linking.openURL(`${l.linkurl}`) }}
+                                        icon={<Icon name='link' color='#c4463d' />}
+                                        titleStyle={{ paddingLeft: 10, color: '#c4463d' }}
+                                        buttonStyle={{ borderColor: '#c4463d', borderWidth: 2, borderRadius: 20, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#fff' }}
+                                        title='More Info' />
+                                </View>
                             ))
                         }
                     </ScrollView>
                 }
-                <View style={styles.recommendations}>
-                    <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Discover</Text>
-                    {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
-                        <ScrollView>
-                            {
-                                this.state.restaurantsRec.map((l, i) => (
-                                    <ListItem
-                                        key={i}
-                                        leftAvatar={{ source: { uri: l.avatar_url } }}
-                                        title={l.name}
-                                        subtitle={l.address}
-                                        bottomDivider
-                                    />
-                                ))
-                            }
-                        </ScrollView>
-                    }
-                </View>
             </View>
         )
     }
-}
+};
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 40,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+
     },
     categories: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    recommendations: {
-        flex: 2,
-        backgroundColor: '#fff',
+    header: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: '#444'
     }
 })

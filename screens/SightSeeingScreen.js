@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
-import { ActivityIndicator, View, Text, StyleSheet, YellowBox } from 'react-native';
-import { ListItem } from 'react-native-elements'
+import React from 'react';
+import { ActivityIndicator, View, Text, StyleSheet, YellowBox, Linking } from 'react-native';
+import { Image, Button, Icon } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import { ScrollView } from 'react-native-gesture-handler';
 
-export default class SightSeeingScreen extends Component {
-
+export default class SightSeeingScreen extends React.Component {
     static navigationOptions = {
         title: 'Sightseeing',
         headerStyle: {
@@ -18,69 +17,88 @@ export default class SightSeeingScreen extends Component {
         },
     }
 
-
-
     constructor(props) {
         super(props);
         YellowBox.ignoreWarnings(['Setting a timer']);
-        this.ref = firebase.firestore().collection('sightsee');    // Discover
-        this.sightseeing = null;  // Reccomendations
+        this.ref = firebase.firestore().collection('sightsee');
+        this.sightsee = null;
         this.state = {
             isLoading: true,
-            sightseeinglist: [],
+            sightsee: [],
         };
     }
 
-
     onCollectionUpdate = (querySnapshot) => {
-        const sightseeinglist = [];
+        const sightsee = [];
         querySnapshot.forEach((doc) => {
-            const { name, address, id, avatar_url } = doc.data();
-            sightseeinglist.push({
+            const { name, linkurl, address, imageUri } = doc.data();
+            sightsee.push({
                 key: doc.id,
                 doc,
                 name,
                 address,
-                avatar_url
+                imageUri,
+                linkurl
             });
         });
         this.setState({
-            sightseeinglist,
+            sightsee,
             isLoading: false
         });
     }
 
-    componentDidMount() {
-        this.sightseeing = this.ref.onSnapshot(this.onCollectionUpdate);
-    }
 
-    componentWillUnmount() {
-        this.sightseeing = null;
-        this.state = {
-            isLoading: true,
-            sightseeinglist: [],
-        };
+    componentDidMount() {
+        this.sightsee = this.ref.onSnapshot(this.onCollectionUpdate);
     }
 
 
 
     render() {
+
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d' }}>Sightseeing</Text>
+                <Text style={styles.header}>Our Suggestions</Text>
                 {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
                     <ScrollView
+                        showsVerticalScrollIndicator={false}
                         style={styles.categories}>
                         {
-                            this.state.sightseeinglist.map((l, i) => (
-                                <ListItem
-                                    key={i}
-                                    leftAvatar={{ source: { uri: l.avatar_url } }}
-                                    title={l.name}
-                                    subtitle={l.address}
-                                    onPress={() => this.props.navigation.navigate(`${l.link}`)}
-                                    bottomDivider
-                                />
+                            this.state.sightsee.map((l, i) => (
+                                <View key={i} style={{ paddingVertical: 15 }}>
+                                    <Text style={{ color: '#c4463d', fontWeight: '400', fontSize: 24 }}>{l.name}</Text>
+                                    <Image
+                                        resizeMode='cover'
+                                        source={{ uri: l.imageUri }}
+                                        style={{ width: null, height: 190 }}
+                                        PlaceholderContent={<ActivityIndicator />}
+                                    />
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Icon
+                                            reverse
+                                            size={12}
+                                            name='location-on'
+                                            color='#c4463d'
+                                            raised={true}
+                                        />
+                                        <View style={{
+                                            flex: 1, justifyContent: 'flex-end',
+                                            alignItems: 'flex-start',
+                                        }}>
+                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.address}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <Button
+                                        raised={true}
+                                        type='outline'
+                                        onPress={() => { Linking.openURL(`${l.linkurl}`) }}
+                                        icon={<Icon name='link' color='#c4463d' />}
+                                        titleStyle={{ paddingLeft: 10, color: '#c4463d' }}
+                                        buttonStyle={{ borderColor: '#c4463d', borderWidth: 2, borderRadius: 20, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#fff' }}
+                                        title='More Info' />
+                                </View>
                             ))
                         }
                     </ScrollView>
@@ -88,20 +106,23 @@ export default class SightSeeingScreen extends Component {
             </View>
         )
     }
-}
+};
+
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         marginTop: 40,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
+
     },
     categories: {
         flex: 1,
         backgroundColor: '#fff',
     },
-    recommendations: {
-        flex: 2,
-        backgroundColor: '#fff',
+    header: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: '#444'
     }
 })
