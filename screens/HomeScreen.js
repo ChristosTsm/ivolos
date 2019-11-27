@@ -14,10 +14,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import * as Font from 'expo-font';
 import Category from '../components/Category';
 import { SocialIcon } from 'react-native-elements'
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
 
-const { height, width } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -43,7 +41,7 @@ export default class HomeScreen extends React.Component {
         return (
             <ScrollView style={styles.container}>
                 <ImageBackground
-                    blurRadius={2}
+                    blurRadius={5}
                     source={require('../assets/headerimg.jpg')}
                     style={styles.top}>
                     {this.state.fontLoaded ?
@@ -56,10 +54,21 @@ export default class HomeScreen extends React.Component {
                         <Button
                             onPress={() => this.props.navigation.navigate('About')}
                             titleStyle={{ fontSize: 20, padding: 10 }}
-                            buttonStyle={{ backgroundColor: '#c4463d', padding: 12 }}
+                            buttonStyle={{
+                                shadowColor: "#000",
+                                shadowOffset: {
+                                    width: 0,
+                                    height: 2,
+                                },
+                                shadowOpacity: 0.25,
+                                shadowRadius: 3.84,
+                                elevation: 5,
+                                backgroundColor: '#c4463d'
+                            }}
                             style={styles.btn}
                             title="Things To Do"
                             iconRight
+                            raised
                             icon={
                                 <Icon
                                     name='rightcircleo'
@@ -84,28 +93,29 @@ export default class HomeScreen extends React.Component {
                                     <Category
                                         imageUri={require('../assets/rest.jpg')}
                                         title={'Restaurants'}
-                                        link='About'>
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
+                                    >
+                                        <Button buttonStyle={{ borderRadius: 0 , backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
                                     </Category>
                                     <Category
                                         imageUri={require('../assets/liquor.jpg')}
                                         title={'Nightlife'}
                                     >
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Nightlife')} title='Explore' />
+                                        <Button buttonStyle={{ borderRadius:0, backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Nightlife')} title='Explore' />
                                     </Category>
 
                                     <Category
                                         imageUri={require('../assets/coffee.jpg')}
                                         title={'Coffee Shops'}
                                     >
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('CoffeeShops')} title='Explore' />
+                                        <Button buttonStyle={{ borderRadius: 0 , backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('CoffeeShops')} title='Explore' />
                                     </Category>
 
                                     <Category
                                         imageUri={require('../assets/sightsee.jpg')}
                                         title={'Sightseeing'}
                                     >
-                                        <Button buttonStyle={{ backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Sightsee')} title='Explore' />
+                                        <Button buttonStyle={{backgroundColor: '#c4463d',borderRadius: 0}}
+                                            onPress={() => this.props.navigation.navigate('Sightsee')} title='Explore' />
                                     </Category>
                                 </ScrollView>
                             </View>
@@ -123,7 +133,18 @@ export default class HomeScreen extends React.Component {
                                     />
                                     <Button
                                         title='Learn More'
-                                        buttonStyle={{ backgroundColor: '#c4463d' }}
+                                        raised
+                                        buttonStyle={{
+                                            shadowColor: "#000",
+                                            shadowOffset: {
+                                                width: 0,
+                                                height: 2,
+                                            },
+                                            shadowOpacity: 0.25,
+                                            shadowRadius: 3.84,
+                                            elevation: 5,
+                                            backgroundColor: '#c4463d'
+                                        }}
                                         onPress={() => this.props.navigation.navigate('Student')}
                                     />
                                 </View>
@@ -142,7 +163,18 @@ export default class HomeScreen extends React.Component {
                                         />
                                         <Button
                                             title='Learn More'
-                                            buttonStyle={{ backgroundColor: '#c4463d' }}
+                                            raised
+                                            buttonStyle={{
+                                                shadowColor: "#000",
+                                                shadowOffset: {
+                                                    width: 0,
+                                                    height: 2,
+                                                },
+                                                shadowOpacity: 0.25,
+                                                shadowRadius: 3.84,
+                                                elevation: 5,
+                                                backgroundColor: '#c4463d'
+                                            }}
                                             onPress={() => this.props.navigation.navigate('Christmas')}
                                         />
                                     </View>
@@ -151,7 +183,18 @@ export default class HomeScreen extends React.Component {
                                     <SocialIcon
                                         type='twitter'
                                         raised
-                                        style={{ backgroundColor: '#c4463d' }}
+                                        style={{
+                                            backgroundColor: '#c4463d',
+                                            shadowColor: "#000",
+                                            shadowOffset: {
+                                                width: 0,
+                                                height: 2,
+                                            },
+                                            shadowOpacity: 0.25,
+                                            shadowRadius: 3.84,
+
+                                            elevation: 5,
+                                        }}
                                     />
                                     <SocialIcon
                                         type='facebook'
@@ -189,13 +232,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '100%'
+        height: '100%',
+    },
+    btn: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+            
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
     txt: {
         fontSize: 28,
-        paddingVertical: 120,
+        paddingBottom: 120,
+        paddingTop: 50,
         color: '#c4463d',
-        fontFamily: 'Montserrat-light'
+        fontFamily: 'Montserrat-Regular'
     },
     container: {
         flex: 1,

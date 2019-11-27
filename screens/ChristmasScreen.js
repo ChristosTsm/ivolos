@@ -1,11 +1,9 @@
 import React from 'react';
-import { View, Text, Linking } from 'react-native';
-import { Card, ListItem, Button, Icon } from 'react-native-elements';
-import Event from '../components/Event';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { ActivityIndicator, View, Text, StyleSheet, YellowBox, Linking } from 'react-native';
+import { Image, Button, Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 export default class Students extends React.Component {
     static navigationOptions = {
@@ -18,40 +16,118 @@ export default class Students extends React.Component {
             fontWeight: 'bold',
         },
     }
-    componentDidMount() {
-        this.readUserData();
+
+    constructor(props) {
+        super(props);
+        YellowBox.ignoreWarnings(['Setting a timer']);
+        this.ref = firebase.firestore().collection('events');    // Discover
+        this.events = null;  // Discover
+        this.state = {
+            isLoading: true,
+            events: [],
+        };
     }
 
-    readUserData() {
-        firebase.database().ref('users/').on('value', function (snapshot) {
-            console.log(snapshot.val())
-            return (<Text>snapshot.val()</Text>)
+    onCollectionUpdate = (querySnapshot) => {
+        const events = [];
+        querySnapshot.forEach((doc) => {
+            const { name, date, place, time, linkurl, avatar_url } = doc.data();
+            events.push({
+                key: doc.id,
+                doc,
+                name,
+                date,
+                time,
+                avatar_url,
+                linkurl,
+                place
+            });
+        });
+        this.setState({
+            events,
+            isLoading: false
         });
     }
+
+
+    componentDidMount() {
+        this.events = this.ref.onSnapshot(this.onCollectionUpdate);
+    }
+
 
 
     render() {
 
         return (
-            <ScrollView>
-                <Event
-                    title='Christmas Concert: Christos Mastoras & Despina Vandi'
-                    desc={this.readUserData()}
-                    imageUri={require('../assets/xmas.jpg')}
-                    openURL={() => Linking.openURL('https://allevents.in/volos/%CE%94%CE%AD%CF%83%CF%80%CE%BF%CE%B9%CE%BD%CE%B1-%CE%92%CE%B1%CE%BD%CE%B4%CE%AE-and-%CE%A7%CF%81%CE%AE%CF%83%CF%84%CE%BF%CF%82-%CE%9C%CE%AC%CF%83%CF%84%CE%BF%CF%81%CE%B1%CF%82-%CE%A4%CE%B5%CE%BB%CE%B5%CF%84%CE%AE-%CE%A6%CF%89%CF%84%CE%B1%CE%B3%CF%8E%CE%B3%CE%B7%CF%83%CE%B7%CF%82-%CE%92%CF%8C%CE%BB%CE%BF%CF%85/200018368723645?ref=eventlist-l4')}
-                />
-                <Event
-                    title='Christmas Charity Bazar'
-                    desc='Thu Dec 04 2019 at 01:00 pm - Saint Joseph'
-                    imageUri={require('../assets/bazar.jpg')}
-                    openURL={() => Linking.openURL('https://allevents.in/volos/%CE%A7%CF%81%CE%B9%CF%83%CF%84%CE%BF%CF%85%CE%B3%CE%B5%CE%BD%CE%BD%CE%B9%CE%AC%CF%84%CE%B9%CE%BA%CE%BF-%CF%86%CE%B9%CE%BB%CE%B1%CE%BD%CE%B8%CF%81%CF%89%CF%80%CE%B9%CE%BA%CF%8C-%CE%9C%CF%80%CE%B1%CE%B6%CE%AC%CF%81/200018368729311?ref=eventlist-l4')}
-                />
-                <Event
-                    title='Christmas Charity Bazar'
-                    desc='Thu Dec 05 2019 at 09:00 pm'
-                    imageUri={require('../assets/xmas.jpg')}
-                />
-            </ScrollView>
+            <View style={styles.container}>
+                {/* <Text style={{ fontSize: 24, fontWeight: '700', color: '#c4463d', marginHorizontal: 20 }}>Christmas Activities & Events</Text> */}
+                {this.state.isLoading ? <ActivityIndicator style={{ marginTop: 40 }} size="large" color='#c4463d' /> :
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        style={styles.categories}>
+                        {
+                            this.state.events.map((l, i) => (
+                                <View key={i} style={{ paddingVertical: 15 }}>
+                                    <Text style={{ color: '#c4463d', fontWeight: '700', fontSize: 24 }}>{l.name}</Text>
+                                    <Image
+                                        resizeMode='contain'
+                                        source={{ uri: l.avatar_url }}
+                                        style={{ width: null, height: 190 }}
+                                        PlaceholderContent={<ActivityIndicator />}
+                                    />
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Icon
+                                            reverse
+                                            name='location-on'
+                                            color='#c4463d'
+                                            raised={true}
+                                        />
+                                        <View style={{
+                                            flex: 1, justifyContent: 'flex-end',
+                                            alignItems: 'center',
+                                        }}>
+                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.date}
+                                            </Text>
+                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.time}
+                                            </Text>
+                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.place}
+                                            </Text>
+                                        </View>
+                                    </View>
+                                    <Button
+                                        raised={true}
+                                        type='outline'
+                                        onPress={() => { Linking.openURL(`${l.linkurl}`) }}
+                                        icon={<Icon name='link' color='#c4463d' />}
+                                        titleStyle={{ paddingLeft: 10, color: '#c4463d' }}
+                                        buttonStyle={{ borderColor: '#c4463d', borderWidth: 2, borderRadius: 20, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#fff' }}
+                                        title='More Info' />
+                                </View>
+                            ))
+                        }
+                    </ScrollView>
+                }
+            </View>
         )
     }
 };
+
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: 40,
+        paddingHorizontal: 20,
+
+    },
+    categories: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    header: {
+
+    }
+})

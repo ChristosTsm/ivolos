@@ -1,16 +1,10 @@
 import React, { Component } from 'react'
 import { Text, View, Image } from 'react-native'
-import { Button } from 'react-native-elements';
-
-
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-
 
 export default class Category extends Component {
     render() {
         return (
-            <View style={{ height: 130, width: 130, marginLeft: 20, borderWidth: 0.8, borderColor: '#c4463d' }}>
+            <View style={{ height: 130, width: 130, marginLeft: 20, borderWidth: 0.4, borderColor: '#c4463d'}}>
                 <View style={{ flex: 2 }}>
                     <Image
                         source={this.props.imageUri}
@@ -20,7 +14,6 @@ export default class Category extends Component {
                 <View style={{ flex: 1, paddingLeft: 10, paddingTop: 10 }}>
                     <Text style={{ fontWeight: '700', fontSize: 15, color: '#c4463d' }}>{this.props.title}</Text>
                 </View>
-                {/* <Button buttonStyle={{ backgroundColor: '#c4463d' }} title='Explore' onPress={() => this.props.navigation.navigate(`${this.props.link}`)} /> */}
                 {this.props.children}
             </View>
         )

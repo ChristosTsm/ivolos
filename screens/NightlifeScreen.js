@@ -36,7 +36,7 @@ export default class RestaurantScreen extends Component {
     onCollectionUpdate = (querySnapshot) => {
         const nightlifeStores = [];
         querySnapshot.forEach((doc) => {
-            const { name, address, id, avatar_url } = doc.data();
+            const { name, address, avatar_url } = doc.data();
             nightlifeStores.push({
                 key: doc.id,
                 doc,
@@ -54,7 +54,7 @@ export default class RestaurantScreen extends Component {
     onCollectionDiscUpdate = (queryDiscSnapshot) => {
         const discStores = [];
         queryDiscSnapshot.forEach((doc) => {
-            const { name, address, id, avatar_url } = doc.data();
+            const { name, address, avatar_url } = doc.data();
             discStores.push({
                 key: doc.id,
                 doc,
