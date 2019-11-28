@@ -4,7 +4,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './screens/HomeScreen';
 import AboutScreen from './screens/AboutScreen';
-import StudentScreen from './screens/StudentScreen';
+import NeaAghialosScreen from './screens/NeaAghialosScreen';
 import RestaurantScreen from './screens/RestaurantScreen';
 import ChristmasScreen from './screens/ChristmasScreen';
 import NightlifeScreen from './screens/NightlifeScreen';
@@ -36,8 +36,8 @@ const AppNavigator = createStackNavigator({
   About: {
     screen: AboutScreen
   },
-  Student: {
-    screen: StudentScreen
+  NeaAghialos: {
+    screen: NeaAghialosScreen
   },
   Restaurant: {
     screen: RestaurantScreen
