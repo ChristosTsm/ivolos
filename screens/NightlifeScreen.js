@@ -1,9 +1,10 @@
 import React from 'react';
 import { ActivityIndicator, View, Text, StyleSheet, YellowBox, Linking } from 'react-native';
-import { Image, Button, Icon } from 'react-native-elements';
+import { Image, Button, Icon, Divider } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import Ratings from '../components/Ratings';
 
 export default class NightlifeScreen extends React.Component {
     static navigationOptions = {
@@ -31,13 +32,14 @@ export default class NightlifeScreen extends React.Component {
     onCollectionUpdate = (querySnapshot) => {
         const night = [];
         querySnapshot.forEach((doc) => {
-            const { name, linkurl, address, imageUri } = doc.data();
+            const { name, linkurl, address, imageUri, rating } = doc.data();
             night.push({
                 key: doc.id,
                 doc,
                 name,
                 address,
                 imageUri,
+                rating,
                 linkurl
             });
         });
@@ -66,7 +68,10 @@ export default class NightlifeScreen extends React.Component {
                         {
                             this.state.night.map((l, i) => (
                                 <View key={i} style={{ paddingVertical: 15 }}>
-                                    <Text style={{ color: '#c4463d', fontWeight: '400', fontSize: 24 }}>{l.name}</Text>
+                                    <View style={{ flexDirection: 'row' }} >
+                                        <Text style={{ color: '#c4463d', fontWeight: '400', fontSize: 24 }}>{l.name}</Text>
+                                        <Ratings rating={l.rating} />
+                                    </View>
                                     <Image
                                         resizeMode='cover'
                                         source={{ uri: l.imageUri }}
@@ -98,6 +103,7 @@ export default class NightlifeScreen extends React.Component {
                                         titleStyle={{ paddingLeft: 10, color: '#c4463d' }}
                                         buttonStyle={{ borderColor: '#c4463d', borderWidth: 2, borderRadius: 20, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#fff' }}
                                         title='More Info' />
+                                    <Divider style={{ backgroundColor: '#c4463d', marginVertical: 25 }} />
                                 </View>
                             ))
                         }
@@ -123,6 +129,8 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 24,
         fontWeight: '700',
-        color: '#444'
+        color: '#444',
+        borderBottomColor: '#d9d9d9',
+        borderBottomWidth: 0.6
     }
 })

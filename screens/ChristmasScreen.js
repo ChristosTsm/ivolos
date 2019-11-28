@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, View, Text, StyleSheet, YellowBox, Linking } from 'react-native';
-import { Image, Button, Icon } from 'react-native-elements';
+import { Image, Button, Icon, Divider } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -105,6 +105,7 @@ export default class Students extends React.Component {
                                         titleStyle={{ paddingLeft: 10, color: '#c4463d' }}
                                         buttonStyle={{ borderColor: '#c4463d', borderWidth: 2, borderRadius: 20, marginLeft: 0, marginRight: 0, marginBottom: 0, backgroundColor: '#fff' }}
                                         title='More Info' />
+                                    <Divider style={{ backgroundColor: '#c4463d', marginVertical: 25 }} />
                                 </View>
                             ))
                         }
