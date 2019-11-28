@@ -1,9 +1,10 @@
 {
   "expo": {
     "name": "iVolos Tourist Guide",
-    "slug": "ivolos-guide",
+    "slug": "ivolos-tourist-guide",
     "privacy": "public",
     "sdkVersion": "35.0.0",
+    "primaryColor": "#c4463d",
     "platforms": [
       "ios",
       "android",
@@ -14,7 +15,7 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#c4463d"
     },
     "updates": {
@@ -24,7 +25,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.ivoloscompany.ivolostouristguide"
+    },
+    "android": {
+      "package": "com.ivoloscompany.ivolostouristguide"
+    },
+    "description": ""
   }
 }

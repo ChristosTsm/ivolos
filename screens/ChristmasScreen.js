@@ -7,7 +7,7 @@ import 'firebase/firestore';
 
 export default class Students extends React.Component {
     static navigationOptions = {
-        title: 'Christmas Events & Sightseeing',
+        title: 'Volos Events',
         headerStyle: {
             backgroundColor: '#c4463d',
         },
@@ -76,24 +76,38 @@ export default class Students extends React.Component {
                                         PlaceholderContent={<ActivityIndicator />}
                                     />
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <Icon
-                                            reverse
-                                            name='location-on'
-                                            color='#c4463d'
-                                            raised={true}
-                                        />
                                         <View style={{
                                             flex: 1, justifyContent: 'flex-end',
                                             alignItems: 'center',
                                         }}>
+
+
+                                        </View>
+                                    </View>
+                                    <View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Icon
+                                                reverse
+                                                name='location-on'
+                                                color='#c4463d'
+                                                size={15}
+                                            />
                                             <Text style={{ fontSize: 16, color: '#c4463d' }}>
+                                                {l.place}
+                                            </Text>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Icon
+                                                reverse
+                                                name='schedule'
+                                                color='#c4463d'
+                                                size={15}
+                                            />
+                                            <Text style={{ fontSize: 16, color: '#c4463d', paddingRight: 5 }}>
                                                 {l.date}
                                             </Text>
                                             <Text style={{ fontSize: 16, color: '#c4463d' }}>
-                                                {l.time}
-                                            </Text>
-                                            <Text style={{ fontSize: 16, color: '#c4463d' }}>
-                                                {l.place}
+                                                at {l.time}
                                             </Text>
                                         </View>
                                     </View>

@@ -25,7 +25,7 @@ export default class NACategory extends Component {
                         <Text style={{ flex: 3, color: '#444' }}>{this.props.address}</Text>
                     </View>
                     {this.props.winter ?
-                        <View style={{ flexDirection: 'row', alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ marginBottom: 5, flexDirection: 'row', alignContent: 'center', justifyContent: 'center', alignItems: 'center' }}>
                             <Badge style={{ flex: 1 }} status="warning" /><Text style={{ flex: 2 }}>Winter Only</Text>
                         </View>
                         :

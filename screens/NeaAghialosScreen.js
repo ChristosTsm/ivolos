@@ -207,38 +207,6 @@ export default class NeaAghialosScreen extends Component {
                             </View>
                         }
                     </View>
-                    {/* <ScrollView
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                    >
-                        <NACategory
-                            imageUri={require('../assets/rest.jpg')}
-                            title={'Restaurants'}
-                        >
-                            <Button buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
-                        </NACategory>
-                        <NACategory
-                            imageUri={require('../assets/liquor.jpg')}
-                            title={'Nightlife'}
-                        >
-                            <Button buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Nightlife')} title='Explore' />
-                        </NACategory>
-
-                        <NACategory
-                            imageUri={require('../assets/coffee.jpg')}
-                            title={'Coffee Shops'}
-                        >
-                            <Button buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('CoffeeShops')} title='Explore' />
-                        </NACategory>
-
-                        <NACategory
-                            imageUri={require('../assets/sightsee.jpg')}
-                            title={'Sightseeing'}
-                        >
-                            <Button buttonStyle={{ backgroundColor: '#c4463d', borderRadius: 0 }}
-                                onPress={() => this.props.navigation.navigate('Sightsee')} title='Explore' />
-                        </NACategory>
-                    </ScrollView> */}
                 </View>
             </ScrollView>
         )

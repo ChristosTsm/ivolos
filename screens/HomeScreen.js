@@ -7,7 +7,8 @@ import {
     ActivityIndicator,
     ScrollView,
     Dimensions,
-    Image
+    Image,
+    Linking
 } from 'react-native';
 import { Button, ThemeProvider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -121,7 +122,7 @@ export default class HomeScreen extends React.Component {
                             </View>
                             <View style={{ marginTop: 40, paddingHorizontal: 20 }}>
                                 <Text style={{ color: '#c4463d', fontSize: 24, fontWeight: '700' }}>
-                                    Introducing Nea Aghialos
+                                    Discover Nea Aghialos
                                 </Text>
                                 <Text style={{ color: '#c4463d', fontSize: 12, fontWeight: '100' }}>
                                     A hidden paradise 15km away from the city of Volos.
@@ -183,28 +184,20 @@ export default class HomeScreen extends React.Component {
                                     <SocialIcon
                                         type='twitter'
                                         raised
-                                        style={{
-                                            backgroundColor: '#c4463d',
-                                            shadowColor: "#000",
-                                            shadowOffset: {
-                                                width: 0,
-                                                height: 2,
-                                            },
-                                            shadowOpacity: 0.25,
-                                            shadowRadius: 3.84,
-
-                                            elevation: 5,
-                                        }}
+                                        style={{ backgroundColor: '#c4463d' }}
+                                        onPress={() => { Linking.openURL('https://twitter.com/IvolosTg') }}
                                     />
                                     <SocialIcon
                                         type='facebook'
                                         raised
                                         style={{ backgroundColor: '#c4463d' }}
+                                        onPress={() => { Linking.openURL('https://www.facebook.com/IVolos-TG-100547661432250/') }}
                                     />
                                     <SocialIcon
                                         type='instagram'
                                         raised
                                         style={{ backgroundColor: '#c4463d' }}
+                                        onPress={() => { Linking.openURL('https://www.instagram.com/ivolos.tg/') }}
                                     />
                                 </View>
                             </View>
