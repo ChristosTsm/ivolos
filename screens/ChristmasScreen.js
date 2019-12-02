@@ -67,7 +67,7 @@ export default class Students extends React.Component {
                         style={styles.categories}>
                         {
                             this.state.events.map((l, i) => (
-                                <View key={i} style={{ paddingVertical: 15 }}>
+                                <View key={i}>
                                     <Text style={{ color: '#c4463d', fontWeight: '700', fontSize: 24 }}>{l.name}</Text>
                                     <Image
                                         resizeMode='contain'

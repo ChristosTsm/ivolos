@@ -4,7 +4,7 @@ import { Text, View, Image } from 'react-native'
 export default class Category extends Component {
     render() {
         return (
-            <View style={{ height: 130, width: 130, marginLeft: 20, borderWidth: 0.4, borderColor: '#c4463d'}}>
+            <View style={{ height: 130, width: 130, marginLeft: 20, borderWidth: 0.4, borderColor: '#c4463d' }}>
                 <View style={{ flex: 2 }}>
                     <Image
                         source={this.props.imageUri}

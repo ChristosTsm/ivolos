@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
-import { Card, ListItem, Button, Icon } from 'react-native-elements';
+import { Text, View } from 'react-native'
+import { Card, Button, Icon } from 'react-native-elements';
 
 export default class Event extends Component {
     render() {

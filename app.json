@@ -29,7 +29,8 @@
       "bundleIdentifier": "com.ivoloscompany.ivolostouristguide"
     },
     "android": {
-      "package": "com.ivoloscompany.ivolostouristguide"
+      "package": "com.ivoloscompany.ivolostouristguide",
+      "permissions": []
     },
     "description": ""
   }

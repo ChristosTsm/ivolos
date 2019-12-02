@@ -108,6 +108,17 @@ export default class NeaAghialosScreen extends Component {
                                                                     title='Explore'
                                                                 />
                                                             </NACategory>
+                                                            <NACategory
+                                                                imageUri={require('../assets/giousouri.jpg')}
+                                                                title={'Giousouri'}
+                                                                address={'Maltezou 3 Néa Ankhíalos'}
+                                                            >
+                                                                <Button
+                                                                    buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
+                                                                    onPress={() => { Linking.openURL('https://www.facebook.com/pages/%CE%A4%CE%BF-%CE%93%CE%B9%CE%BF%CF%85%CF%83%CE%BF%CF%85%CF%81%CE%B9/107831332693736') }}
+                                                                    title='Explore'
+                                                                />
+                                                            </NACategory>
                                                         </ScrollView>
                                                     </View>
                                                     : l.title === 'Coffee Shops' ?
@@ -121,7 +132,7 @@ export default class NeaAghialosScreen extends Component {
                                                                 <NACategory
                                                                     imageUri={require('../assets/cielo.jpg')}
                                                                     title={'Cielo Seaside Bar'}
-                                                                    address={'Elinikis Aeroporias 2'}
+                                                                    address={'Elinikis Aeroporias 2 Néa Ankhíalos'}
                                                                 >
                                                                     <Button
                                                                         buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
@@ -132,7 +143,7 @@ export default class NeaAghialosScreen extends Component {
                                                                 <NACategory
                                                                     imageUri={require('../assets/aiolia.jpg')}
                                                                     title={'Aiolia Beach Bar'}
-                                                                    address={'Zarifi 2'}
+                                                                    address={'Zarifi 2 Néa Ankhíalos'}
                                                                 >
                                                                     <Button
                                                                         buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
@@ -143,11 +154,22 @@ export default class NeaAghialosScreen extends Component {
                                                                 <NACategory
                                                                     imageUri={require('../assets/kentri.jpg')}
                                                                     title={'Kentri Drinks & Coffee'}
-                                                                    address={'Kasneti 2'}
+                                                                    address={'Kasneti 2 Néa Ankhíalos'}
                                                                 >
                                                                     <Button
                                                                         buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
                                                                         onPress={() => { Linking.openURL('https://www.facebook.com/kentri.cafebar/') }}
+                                                                        title='Explore'
+                                                                    />
+                                                                </NACategory>
+                                                                <NACategory
+                                                                    imageUri={require('../assets/alisaxni.jpg')}
+                                                                    title={'Alisaxni Cafe Bar'}
+                                                                    address={'Néa Ankhíalos Beach'}
+                                                                >
+                                                                    <Button
+                                                                        buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
+                                                                        onPress={() => { Linking.openURL('https://www.facebook.com/pages/Cafe-Bar-Alisaxni/174862549363478') }}
                                                                         title='Explore'
                                                                     />
                                                                 </NACategory>
@@ -164,7 +186,7 @@ export default class NeaAghialosScreen extends Component {
                                                                     <NACategory
                                                                         imageUri={require('../assets/cielonight.jpg')}
                                                                         title={'Cielo Seaside Bar'}
-                                                                        address={'Elinikis Aeroporias 2'}
+                                                                        address={'Elinikis Aeroporias 2 Néa Ankhíalos'}
                                                                     >
                                                                         <Button
                                                                             buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
@@ -174,8 +196,8 @@ export default class NeaAghialosScreen extends Component {
                                                                     </NACategory>
                                                                     <NACategory
                                                                         imageUri={require('../assets/aiolianight.jpg')}
-                                                                        title={'Aiolia Beach Bar'}
-                                                                        address={'Zarifi 2'}
+                                                                        title={'Aiolia Beach Bar Néa Ankhíalos'}
+                                                                        address={'Zarifi 2 Néa Ankhíalos'}
                                                                     >
                                                                         <Button
                                                                             buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }}
@@ -186,7 +208,7 @@ export default class NeaAghialosScreen extends Component {
                                                                     <NACategory
                                                                         imageUri={require('../assets/ambia.jpg')}
                                                                         title={'Ambia Yiala'}
-                                                                        address={'Diamantopoulou 2'}
+                                                                        address={'Diamantopoulou 2 Néa Ankhíalos'}
                                                                         winter={true}
                                                                     >
                                                                         <Button

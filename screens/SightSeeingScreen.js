@@ -64,7 +64,7 @@ export default class SightSeeingScreen extends React.Component {
                         style={styles.categories}>
                         {
                             this.state.sightsee.map((l, i) => (
-                                <View key={i} style={{ paddingVertical: 15 }}>
+                                <View key={i}>
                                     <Text style={{ color: '#c4463d', fontWeight: '400', fontSize: 24 }}>{l.name}</Text>
                                     <Image
                                         resizeMode='cover'

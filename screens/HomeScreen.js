@@ -95,7 +95,9 @@ export default class HomeScreen extends React.Component {
                                         imageUri={require('../assets/rest.jpg')}
                                         title={'Restaurants'}
                                     >
-                                        <Button buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d' }} onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
+                                        <Button
+                                            buttonStyle={{ borderRadius: 0, backgroundColor: '#c4463d', }}
+                                            onPress={() => this.props.navigation.navigate('Restaurant')} title='Explore' />
                                     </Category>
                                     <Category
                                         imageUri={require('../assets/liquor.jpg')}
@@ -122,7 +124,7 @@ export default class HomeScreen extends React.Component {
                             </View>
                             <View style={{ marginTop: 40, paddingHorizontal: 20 }}>
                                 <Text style={{ color: '#c4463d', fontSize: 24, fontWeight: '700' }}>
-                                    Discover Nea Aghialos
+                                    Discover Néa Ankhíalos
                                 </Text>
                                 <Text style={{ color: '#c4463d', fontSize: 12, fontWeight: '100' }}>
                                     A hidden paradise 15km away from the city of Volos.
